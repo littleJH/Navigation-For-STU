@@ -48,7 +48,7 @@ npm：npm 是 Node.js 标准的软件包管理器，可以管理项目依赖的�
 npm install -g http-server
 ~~~
 
-<img src="C:\Users\zhangjiahao\AppData\Roaming\Typora\typora-user-images\image-20220909143051475.png" alt="image-20220909143051475" style="zoom:67%;" />
+<img src="https://i.imgur.com/j3Bbcyu.png" alt="image-20220909143051475" style="zoom:67%;" />
 
 2. 导航到 map.html 的根目录下，或将该目录在终端打开。
 
@@ -58,15 +58,15 @@ npm install -g http-server
 http-server
 ~~~
 
-<img src="C:\Users\zhangjiahao\AppData\Roaming\Typora\typora-user-images\image-20220909142908793.png" alt="image-20220909142908793" style="zoom:67%;" />
+<img src="https://i.imgur.com/8b8H5ej.png" alt="image-20220909142908793" style="zoom:67%;" />
 
 3. Ctrl + 鼠标左键单击 http://127.0.0.1:8080，访问本地服务器。
 
-   <img src="C:\Users\zhangjiahao\AppData\Roaming\Typora\typora-user-images\image-20220909143238182.png" alt="image-20220909143238182" style="zoom:67%;" />
+   <img src="https://i.imgur.com/znfvr98.png" alt="image-20220909143238182" style="zoom:67%;" />
 
 4. 进入以下界面，点击 map.html ，使其运行在本地服务器8080端口。
 
-<img src="C:\Users\zhangjiahao\AppData\Roaming\Typora\typora-user-images\image-20220909143336658.png" alt="image-20220909143336658" style="zoom: 67%;" />
+<img src="https://i.imgur.com/9EJh37s.png" alt="image-20220909143336658" style="zoom: 67%;" />
 
 
 
@@ -76,19 +76,19 @@ http-server
 
 1. 网页在启动之初询问用户是否允许获取当前位置。若不允许，则不能从当前位置为起点规划路线。
 
-<img src="C:\Users\zhangjiahao\AppData\Roaming\Typora\typora-user-images\image-20220909172531127.png" alt="image-20220909172531127" style="zoom: 50%;" />
+<img src="https://i.imgur.com/YE4Iwdn.png" alt="image-20220909172531127" style="zoom: 50%;" />
 
 2. 若获取位置失败，则弹出提示框，询问用户是否再次获取
 
-   <img src="C:\Users\zhangjiahao\AppData\Roaming\Typora\typora-user-images\image-20220909173215134.png" alt="image-20220909173215134" style="zoom: 50%;" />
+   <img src="https://i.imgur.com/SdHi4S3.png" alt="image-20220909173215134" style="zoom: 50%;" />
 
 3. 选择起终点
 
-<img src="C:\Users\zhangjiahao\AppData\Roaming\Typora\typora-user-images\image-20220909172748072.png" alt="image-20220909172748072" style="zoom: 67%;" />
+<img src="https://i.imgur.com/k7SARsn.png" alt="image-20220909172748072" style="zoom: 67%;" />
 
 3. 选择好起终点后，点击确定，系统规划一条最优路径。
 
-<img src="C:\Users\zhangjiahao\AppData\Roaming\Typora\typora-user-images\image-20220909172939896.png" alt="image-20220909172939896" style="zoom: 50%;" />
+<img src="https://i.imgur.com/Wf4nns3.png" alt="image-20220909172939896" style="zoom: 50%;" />
 
 4. 点击 ”确定“ 按钮后面的 ”?" 图标，展示《用户使用手册》。
 
