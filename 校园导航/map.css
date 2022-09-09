@@ -1,0 +1,105 @@
+.components {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    justify-content: center;
+    font-family: 'YouYuan';
+
+}
+
+.titleContainer {
+    position: absolute;
+    top: 0;
+    width: 30rem;
+    height: 4rem;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    background-color: #712cf9;
+
+    font-size: 2rem;
+    color: white;
+}
+
+.titleText {
+    margin-left: 1rem;
+    letter-spacing: 0.4rem;
+}
+
+#mapContainer {
+    height: 100%;
+    width: 100%;
+}
+
+.subContainer {
+    position: absolute;
+    top: 85%;
+    height: 4rem;
+    width: 45rem;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 1rem;
+    background-color: 	#F0F8FF;
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+
+    margin-top: calc(-1 * var(--bs-gutter-y));
+    margin-right: calc(-0.5 * var(--bs-gutter-x));
+    margin-left: calc(-0.5 * var(--bs-gutter-x));
+}
+
+
+
+/* .title {
+    color: aliceblue;
+    height: 30%;
+    align-items: center;
+    justify-content: center;
+    background-color: gray;
+    background-image: url('map.jpg');
+    background-repeat:repeat-x;
+    background-size: 100% 100%;
+    font-size:larger;
+} */
+
+.selectContainer {
+    margin: 1rem;
+    width: 35%;
+}
+
+.buttonContainer {
+    margin: 1rem;
+}
+
+#questionCircle {
+    margin-left: 0.5rem;
+}
+
+#alert {
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    width: 20%;
+    margin-bottom: 0;
+}
+
+a:link {
+    color: black;
+}
+a:visited {
+    color: black;
+}
+a:hover {
+    color: blue;
+}
+
+#questionLink {
+    font-size: 1rem;
+    color: white;
+}
