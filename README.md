@@ -48,7 +48,7 @@ npm：npm 是 Node.js 标准的软件包管理器，可以管理项目依赖的�
 npm install -g http-server
 ~~~
 
-<img src="https://i.imgur.com/j3Bbcyu.png" alt="image-20220909143051475" style="zoom:67%;" />
+<img src="https://i.imgur.com/j3Bbcyu.png" alt="image-20220909143051475" style="zoom: 50%;" />
 
 2. 导航到 map.html 的根目录下，或将该目录在终端打开。
 
@@ -58,15 +58,15 @@ npm install -g http-server
 http-server
 ~~~
 
-<img src="https://i.imgur.com/8b8H5ej.png" alt="image-20220909142908793" style="zoom:67%;" />
+<img src="https://i.imgur.com/8b8H5ej.png" alt="image-20220909142908793" style="zoom: 50%;" />
 
 3. Ctrl + 鼠标左键单击 http://127.0.0.1:8080，访问本地服务器。
 
-   <img src="https://i.imgur.com/znfvr98.png" alt="image-20220909143238182" style="zoom:67%;" />
+   <img src="https://i.imgur.com/znfvr98.png" alt="image-20220909143238182" style="zoom: 50%;" />
 
 4. 进入以下界面，点击 map.html ，使其运行在本地服务器8080端口。
 
-<img src="https://i.imgur.com/9EJh37s.png" alt="image-20220909143336658" style="zoom: 67%;" />
+<img src="https://i.imgur.com/9EJh37s.png" alt="image-20220909143336658" style="zoom: 50%;" />
 
 
 
@@ -84,7 +84,7 @@ http-server
 
 3. 选择起终点
 
-<img src="https://i.imgur.com/k7SARsn.png" alt="image-20220909172748072" style="zoom: 67%;" />
+<img src="https://i.imgur.com/k7SARsn.png" alt="image-20220909172748072" style="zoom: 50%;" />
 
 3. 选择好起终点后，点击确定，系统规划一条最优路径。
 
