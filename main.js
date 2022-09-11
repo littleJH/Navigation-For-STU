@@ -1,7 +1,16 @@
 import {
     pointName,
     pointCoordinate
-} from "./校园导航/point.js";
+} from "./point.js";
+import {
+    pointCoordinate as allpoint
+} from "./allpoint.js";
+import {
+    path,
+    startOptionsValue,
+    endOptionsValue
+} from "./dijkstra.js";
+
 
 //创建地图实例
 const map = new BMap.Map("mapContainer");
@@ -48,53 +57,73 @@ myModalEl.addEventListener('show.bs.modal', () => { //是否允许获取当前�
 myModal.show();
 
 
-//获取起点、终点信息
-var startOptionsValue;
-var endOptionsValue;
-var startPoint = new BMap.Point();
-var endPoint = new BMap.Point();
-start.addEventListener("change", () => {
-    if (start.options[start.selectedIndex].value == -1) {
-        startPoint = currentPoint;
-        console.log("起点：当前位置", startPoint, );
-    } else {
-        startOptionsValue = start.options[start.selectedIndex].value;
-        startPoint.lng = pointCoordinate[startOptionsValue][0];
-        startPoint.lat = pointCoordinate[startOptionsValue][1];
-        console.log("起点：", pointName[startOptionsValue], startPoint, );
-    }
-});
-end.addEventListener("change", () => {
-    endOptionsValue = end.options[end.selectedIndex].value;
-    endPoint.lng = pointCoordinate[endOptionsValue][0];
-    endPoint.lat = pointCoordinate[endOptionsValue][1];
-    console.log("终点：", pointName[endOptionsValue], endPoint);
-});
 
 
 //步行路线规划
+var startPoint = new BMap.Point();
+var endPoint = new BMap.Point();
 var confirm = document.getElementById("confirm");
 var walk = new BMap.WalkingRoute(map, {
     renderOptions: {
-        map: map
+        autoViewport: true
     }
 });
+// confirm.addEventListener('click', () => {
+//     walk.clearResults(); //清除最近一次检索的结果
+//     if (startOptionsValue == -1) {
+//         walk.search(pointCoordinate[startOptionsValue][0], pointCoordinate[endOptionsValue][1]);
+//     } else {
+//         for (let i = 0; i < path.length - 1; i++) {
+//             startPoint.lng = allpoint[path[i]][0];
+//             startPoint.lat = allpoint[path[i]][1];
+//             endPoint.lng = allpoint[path[i + 1]][0];
+//             endPoint.lat = allpoint[path[i + 1]][1];
+//             console.log(path[i]);
+//             walk.search(startPoint, endPoint);
+//             var polyline = new BMap.Polyline([startPoint, endPoint], {strokeColor:"blue", strokeWeight:6, strokeOpacity:0.5});
+//             map.addOverlay(polyline);
+//         }
+//     }
+// })
+var chartData = [];
+var polyline;
 confirm.addEventListener('click', () => {
-    walk.clearResults(); //清除最近一次检索的结果
-    var start = new BMap.Point(startPoint.lng, startPoint.lat);
-    var end = new BMap.Point(endPoint.lng, endPoint.lat);
-    walk.search(start, end);
+    map.removeOverlay(polyline);
+    walk.clearResults();
+    if (startOptionsValue == -1) {
+        walk.search(pointCoordinate[startOptionsValue][0], pointCoordinate[endOptionsValue][1]);
+    } else {
+        planPath(path.length - 1);
+        setTimeout(() => {
+            polyline = new BMap.Polyline(chartData, {
+                strokeColor: "blue",
+                strokeWeight: 6,
+                strokeOpacity: 0.5
+            });
+            map.addOverlay(polyline);
+            chartData = [];
+        }, 1000);
+        
+    }
 })
 
+function planPath(i) {
+    if (i < 1) return;
+    startPoint.lng = allpoint[path[i]][0];
+    startPoint.lat = allpoint[path[i]][1];
+    endPoint.lng = allpoint[path[i - 1]][0];
+    endPoint.lat = allpoint[path[i - 1]][1];
+    walk.search(startPoint, endPoint);
+    walk.setSearchCompleteCallback((rs) => {
+        var result = walk.getResults().getPlan(0).getRoute(0).getPath();
+        for (let i = 0; i < result.length; i++) {
+            chartData.push(new BMap.Point(result[i].lng, result[i].lat));
+        }
+        planPath(i - 1);
+    })
+    return;
+}
 
-
-// var polyline = new BMap.Polyline([
-//     new BMap.Point(116.63550347222223,23.41050835503472),
-//     new BMap.Point(116.62960394965278,23.418399251302084)
-//     ],
-//     {strokeColor:"blue", strokeWeight:6, strokeOpacity:0.5}
-//     );
-// map.addOverlay(polyline);
 
 //添加标注
 function setMarker(pointName, pointCoordinate) {
