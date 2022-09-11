@@ -115,6 +115,7 @@ function Dijkstra(Vm) {
 }
 
 function getPath(startOptionsValue, endOptionsValue) {
+    path = [];
     //打印V0-Vn最短路径
     console.log("%s-%s 最小权值和: %d", G.vexs[startOptionsValue], G.vexs[endOptionsValue], ShortPathTable[endOptionsValue]);
     //打印最短路线
