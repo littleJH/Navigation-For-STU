@@ -23,6 +23,8 @@ map.setMapStyleV2({
 });
 
 
+
+
 const myModal = new bootstrap.Modal(document.getElementById("myModal")); //创建modal实例
 const myModalEl = document.getElementById('myModal');
 var notAllow = document.getElementById("notAllow");
@@ -74,8 +76,9 @@ var walk = new BMap.WalkingRoute(map, {
 var chartData = [];
 var polyline;
 var stMarker, endMarker;
-var stIcon = new BMap.Icon('./icons/startIcon.png', new BMap.Size(12, 12));
-var endIcon = new BMap.Icon('./icons/endIcon.png', new BMap.Size(12, 12));
+var stIcon = new BMap.Icon('./icons/startIcon.png', new BMap.Size(12, 15));
+var endIcon = new BMap.Icon('./icons/endIcon.png', new BMap.Size(12, 15));
+console.log(stIcon);
 confirm.addEventListener('click', () => {
     //清空覆盖物和上一次规划的路线
     map.removeOverlay(polyline);
@@ -93,10 +96,14 @@ confirm.addEventListener('click', () => {
         console.log(path);
         planPath(path.length - 1);
         //起点终点标注
-        stMarker = new BMap.Marker(new BMap.Point(allpoint[path[path.length - 1]][0], allpoint[path[path.length - 1]][1]));
-        endMarker = new BMap.Marker(new BMap.Point(allpoint[path[0]][0], allpoint[path[0]][1]));
-        stMarker.setIcon(stIcon);
-        endMarker.setIcon(endIcon);
+        stMarker = new BMap.Marker(new BMap.Point(allpoint[path[path.length - 1]][0], allpoint[path[path.length - 1]][1]), {
+            icon: stIcon
+        });
+        endMarker = new BMap.Marker(new BMap.Point(allpoint[path[0]][0], allpoint[path[0]][1]), {
+            icon:endIcon
+        });
+        // stMarker.setIcon(stIcon);
+        // endMarker.setIcon(endIcon);
         map.addOverlay(stMarker);
         map.addOverlay(endMarker);
         setTimeout(() => {  //停留一秒，等待路径规划完成
@@ -115,7 +122,7 @@ confirm.addEventListener('click', () => {
                 alert3.hidden = true;
             }, 1000);   
             chartData = [];
-        }, 1000);    
+        }, 1500);    
     }
 })
 
@@ -130,6 +137,12 @@ function planPath(i) {
     walk.search(startPoint, endPoint);
     //路径规划完成的回调函数
     walk.setSearchCompleteCallback((rs) => {
+        // console.log(rs);
+        // if(i == path.length -1) {
+        //     re[0].marker.setIcon(stIcon);
+        // } else if(i == 0) {
+        //     re[1].marker.setIcon(endIcon);
+        // }
         var result = walk.getResults().getPlan(0).getRoute(0).getPath();
         for (let i = 0; i < result.length; i++) {
             chartData.push(new BMap.Point(result[i].lng, result[i].lat));
