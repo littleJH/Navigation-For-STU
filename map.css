@@ -81,13 +81,23 @@
     margin-left: 0.5rem;
 }
 
-#alert {
+#alert,
+#alert3{
     position: absolute;
     top: 40%;
     left: 40%;
     width: 20%;
     margin-bottom: 0;
 }
+
+#alert2 {
+    position: absolute;
+    top: 35%;
+    left: 35%;
+    width: 30%;
+    margin-bottom: 0;   
+}
+
 
 a:link {
     color: black;

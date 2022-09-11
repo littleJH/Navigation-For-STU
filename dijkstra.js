@@ -12,54 +12,41 @@ var map = new BMap.Map();
 var martix = new Array(COUNT);
 var st = new BMap.Point();
 var en = new BMap.Point();
-for (let i = 0; i < pointCoordinate.length; i++) {
-    martix[i] = new Array(COUNT);
-}
-
-for (let i = 0; i < pointCoordinate.length; i++) {
-    for (let j = 0; j < pointCoordinate.length; j++) {
-        martix[i][j] = INF;
-    }
-}
-
-for (let i = 0; i < pointCoordinate.length; i++) {
-    for (let j = 0; j < pointCoordinate.length; j++) {
-        if (i == j) {
-            martix[i][j] = 0;
-        }
-    }
-}
-
-for (let k = 0; k < arr.length; k++) {
-    var s = arr[k][0] - 1;
-    var e = arr[k][1] - 1;
-    st.lng = pointCoordinate[s][0];
-    st.lat = pointCoordinate[s][1];
-    en.lng = pointCoordinate[e][0];
-    en.lat = pointCoordinate[e][1];
-    martix[s][e] = martix[e][s] = map.getDistance(st, en);
-}
-
+setMatrix();    //赋值邻接矩阵
 
 //获取起点、终点信息
 var start = document.getElementById("start-select");
 var end = document.getElementById("end-select");
+var myAlert = document.getElementById("alert2");
 var startOptionsValue = -1;
-var endOptionsValue;
+var endOptionsValue = -2;
 start.addEventListener("change", () => {
     startOptionsValue = start.options[start.selectedIndex].value;
     if (startOptionsValue == -1) {
         console.log("起点：当前位置");
+    } else if(startOptionsValue == endOptionsValue) {
+        myAlert.hidden = false;
+        setTimeout(() => {
+            myAlert.hidden = true;
+        }, 1000); 
     } else {
         console.log("起点：", pointName[startOptionsValue]);
         Dijkstra(startOptionsValue);
+        if(endOptionsValue != -2) {
+            getPath(startOptionsValue, endOptionsValue);
+        }
     }
 });
 end.addEventListener("change", () => {
     endOptionsValue = end.options[end.selectedIndex].value;
     console.log("终点：", pointName[endOptionsValue]);
-    if (startOptionsValue != -1) {
+    if (startOptionsValue != -2 && startOptionsValue != endOptionsValue) {
         getPath(startOptionsValue, endOptionsValue);
+    } else if (startOptionsValue == endOptionsValue) {
+        myAlert.hidden = false;
+        setTimeout(() => {
+            myAlert.hidden = true;
+        }, 1000); 
     }
 });
 
@@ -97,9 +84,6 @@ function createMGraph() {
         }
     }
 }
-
-
-
 
 function Dijkstra(Vm) {
     let k, min;
@@ -150,7 +134,36 @@ function getPath(startOptionsValue, endOptionsValue) {
     path[i] = startOptionsValue;
     // str = '0' + str;
     console.log('最短路线：' + str);
-    console.log(path);
+}
+
+function setMatrix() {
+    for (let i = 0; i < pointCoordinate.length; i++) {
+        martix[i] = new Array(COUNT);
+    }
+    
+    for (let i = 0; i < pointCoordinate.length; i++) {
+        for (let j = 0; j < pointCoordinate.length; j++) {
+            martix[i][j] = INF;
+        }
+    }
+    
+    for (let i = 0; i < pointCoordinate.length; i++) {
+        for (let j = 0; j < pointCoordinate.length; j++) {
+            if (i == j) {
+                martix[i][j] = 0;
+            }
+        }
+    }
+    
+    for (let k = 0; k < arr.length; k++) {
+        var s = arr[k][0] - 1;
+        var e = arr[k][1] - 1;
+        st.lng = pointCoordinate[s][0];
+        st.lat = pointCoordinate[s][1];
+        en.lng = pointCoordinate[e][0];
+        en.lat = pointCoordinate[e][1];
+        martix[s][e] = martix[e][s] = map.getDistance(st, en);
+    }
 }
 
 export {

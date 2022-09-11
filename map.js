@@ -16,6 +16,7 @@ import {
 const map = new BMap.Map("mapContainer");
 var point = new BMap.Point(116.64147602899914, 23.418495107908164); //设置中心点坐标
 map.centerAndZoom(point, 17); //地图初始化，同时设置地图展示级别
+map.setMinZoom(16);
 map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
 map.setMapStyleV2({
     styleId: 'af09776652e1308ed209179eda981505'
@@ -62,51 +63,64 @@ myModal.show();
 //步行路线规划
 var startPoint = new BMap.Point();
 var endPoint = new BMap.Point();
+var alert2 = document.getElementById("alert2");
+var alert3 = document.getElementById('alert3');
 var confirm = document.getElementById("confirm");
 var walk = new BMap.WalkingRoute(map, {
     renderOptions: {
         autoViewport: true
     }
 });
-// confirm.addEventListener('click', () => {
-//     walk.clearResults(); //清除最近一次检索的结果
-//     if (startOptionsValue == -1) {
-//         walk.search(pointCoordinate[startOptionsValue][0], pointCoordinate[endOptionsValue][1]);
-//     } else {
-//         for (let i = 0; i < path.length - 1; i++) {
-//             startPoint.lng = allpoint[path[i]][0];
-//             startPoint.lat = allpoint[path[i]][1];
-//             endPoint.lng = allpoint[path[i + 1]][0];
-//             endPoint.lat = allpoint[path[i + 1]][1];
-//             console.log(path[i]);
-//             walk.search(startPoint, endPoint);
-//             var polyline = new BMap.Polyline([startPoint, endPoint], {strokeColor:"blue", strokeWeight:6, strokeOpacity:0.5});
-//             map.addOverlay(polyline);
-//         }
-//     }
-// })
 var chartData = [];
 var polyline;
+var stMarker, endMarker;
+var stIcon = new BMap.Icon('./icons/startIcon.png', new BMap.Size(12, 12));
+var endIcon = new BMap.Icon('./icons/endIcon.png', new BMap.Size(12, 12));
 confirm.addEventListener('click', () => {
+    //清空覆盖物和上一次规划的路线
     map.removeOverlay(polyline);
+    map.removeOverlay(stMarker);
+    map.removeOverlay(endMarker);
     walk.clearResults();
-    if (startOptionsValue == -1) {
+    if (startOptionsValue == -1) {  //起点是当前位置
         walk.search(pointCoordinate[startOptionsValue][0], pointCoordinate[endOptionsValue][1]);
-    } else {
-        planPath(path.length - 1);
+    } else if(startOptionsValue == endOptionsValue) {   //起点和终点相同
+        alert2.hidden = false;
         setTimeout(() => {
+            alert2.hidden = true;
+        }, 1000); 
+    } else {
+        console.log(path);
+        planPath(path.length - 1);
+        //起点终点标注
+        stMarker = new BMap.Marker(new BMap.Point(allpoint[path[path.length - 1]][0], allpoint[path[path.length - 1]][1]));
+        endMarker = new BMap.Marker(new BMap.Point(allpoint[path[0]][0], allpoint[path[0]][1]));
+        stMarker.setIcon(stIcon);
+        endMarker.setIcon(endIcon);
+        map.addOverlay(stMarker);
+        map.addOverlay(endMarker);
+        setTimeout(() => {  //停留一秒，等待路径规划完成
             polyline = new BMap.Polyline(chartData, {
                 strokeColor: "blue",
                 strokeWeight: 6,
                 strokeOpacity: 0.5
             });
             map.addOverlay(polyline);
+            //设置最佳视野
+            var view = map.getViewport(chartData);
+            map.setCenter(view.center);
+            map.setZoom(view.zoom);
+            alert3.hidden = false;
+            setTimeout(() => {
+                alert3.hidden = true;
+            }, 1000);   
             chartData = [];
-        }, 1000);
-        
+        }, 1000);    
     }
 })
 
+
+//递归获得路线
 function planPath(i) {
     if (i < 1) return;
     startPoint.lng = allpoint[path[i]][0];
@@ -114,6 +128,7 @@ function planPath(i) {
     endPoint.lng = allpoint[path[i - 1]][0];
     endPoint.lat = allpoint[path[i - 1]][1];
     walk.search(startPoint, endPoint);
+    //路径规划完成的回调函数
     walk.setSearchCompleteCallback((rs) => {
         var result = walk.getResults().getPlan(0).getRoute(0).getPath();
         for (let i = 0; i < result.length; i++) {
