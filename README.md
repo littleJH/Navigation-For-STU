@@ -50,7 +50,7 @@ npm install -g http-server
 
 <img src="https://i.imgur.com/j3Bbcyu.png" alt="image-20220909143051475" style="zoom: 50%;" />
 
-2. 导航到 map.html 的根目录下，或将该目录在终端打开。
+2. 导航到 `map.html` 的根目录下，或将该目录在终端打开。
 
    输入以下命令：
 
@@ -60,11 +60,11 @@ http-server
 
 <img src="https://i.imgur.com/8b8H5ej.png" alt="image-20220909142908793" style="zoom: 50%;" />
 
-3. Ctrl + 鼠标左键单击 http://127.0.0.1:8080，访问本地服务器。
+3. Ctrl + 鼠标左键单击 `http://127.0.0.1:8080`，访问本地服务器。
 
    <img src="https://i.imgur.com/znfvr98.png" alt="image-20220909143238182" style="zoom: 50%;" />
 
-4. 进入以下界面，点击 map.html ，使其运行在本地服务器8080端口。
+4. 进入以下界面，点击 `map.html` ，使其运行在本地服务器8080端口。
 
 <img src="https://i.imgur.com/9EJh37s.png" alt="image-20220909143336658" style="zoom: 50%;" />
 
@@ -88,16 +88,17 @@ http-server
 
 <img src="https://i.imgur.com/k7SARsn.png" alt="image-20220909172748072" style="zoom: 50%;" />
 
-3. 选择好起终点后，点击确定，系统规划一条最优路径。
+4. 选择好起终点后，点击确定，系统规划一条最优路径。
 
 <img src="https://i.imgur.com/Wf4nns3.png" alt="image-20220909172939896" style="zoom: 50%;" />
 
-4. 点击 ”确定“ 按钮后面的 ”?" 图标，查看《用户使用手册》。
+5. 点击 ”确定“ 按钮后面的 ”?" 图标，查看《用户使用手册》。
 
 ##### 4.2 注意
 
 1. 获取地理位置成功率较低。
-1. 起点和终点不能相同，否则无法进行路线规划。
+2. 起点和终点不能相同，否则无法进行路线规划。
+3. 该应用只能在浏览器端运行。
 
 
 

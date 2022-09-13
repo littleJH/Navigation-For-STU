@@ -9,7 +9,7 @@ const COUNT = pointCoordinate.length;
 const INF = 65535;
 
 var map = new BMap.Map();
-var martix = new Array(COUNT);
+var matrix = new Array(COUNT);
 var st = new BMap.Point();
 var en = new BMap.Point();
 setMatrix();    //赋值邻接矩阵
@@ -22,17 +22,17 @@ var startOptionsValue = -1;
 var endOptionsValue = -2;
 start.addEventListener("change", () => {
     startOptionsValue = start.options[start.selectedIndex].value;
-    if (startOptionsValue == -1) {
+    if (startOptionsValue == -1) {      //选择起点为当前位置
         console.log("起点：当前位置");
-    } else if(startOptionsValue == endOptionsValue) {
+    } else if(startOptionsValue == endOptionsValue) {       //起终点相同
         myAlert.hidden = false;
         setTimeout(() => {
-            myAlert.hidden = true;
+            myAlert.hidden = true;      //提示用户起终点相同
         }, 1000); 
     } else {
         console.log("起点：", pointName[startOptionsValue]);
         Dijkstra(startOptionsValue);
-        if(endOptionsValue != -2) {
+        if(endOptionsValue != -2) {     //正确选择起终点
             getPath(startOptionsValue, endOptionsValue);
         }
     }
@@ -40,12 +40,12 @@ start.addEventListener("change", () => {
 end.addEventListener("change", () => {
     endOptionsValue = end.options[end.selectedIndex].value;
     console.log("终点：", pointName[endOptionsValue]);
-    if (startOptionsValue != -2 && startOptionsValue != endOptionsValue) {
+    if (startOptionsValue != -1 && startOptionsValue != endOptionsValue) {      //起点非当前位置且起终点不同
         getPath(startOptionsValue, endOptionsValue);
-    } else if (startOptionsValue == endOptionsValue) {
+    } else if (startOptionsValue == endOptionsValue) {         //起终点相同
         myAlert.hidden = false;
         setTimeout(() => {
-            myAlert.hidden = true;
+            myAlert.hidden = true;      //提示
         }, 1000); 
     }
 });
@@ -62,7 +62,7 @@ var numVertexes = 74, //定义顶点数
     numEdges = 149; //定义边数
 var Pathmatirx = [] // 用于存储最短路径下标的数组，下标为各个顶点，值为下标顶点的前驱顶点
 var ShortPathTable = [] //用于存储到各点最短路径的权值和
-var path = [];
+var path = [];  //最优路径
 createMGraph();
 
 
@@ -80,7 +80,7 @@ function createMGraph() {
     for (let i = 0; i < G.numVertexes; i++) {
         G.arc[i] = [];
         for (let j = 0; j < G.numVertexes; j++) {
-            G.arc[i][j] = martix[i][j]; //INFINITY; 
+            G.arc[i][j] = matrix[i][j]; //INFINITY; 
         }
     }
 }
@@ -139,19 +139,19 @@ function getPath(startOptionsValue, endOptionsValue) {
 
 function setMatrix() {
     for (let i = 0; i < pointCoordinate.length; i++) {
-        martix[i] = new Array(COUNT);
+        matrix[i] = new Array(COUNT);
     }
     
     for (let i = 0; i < pointCoordinate.length; i++) {
         for (let j = 0; j < pointCoordinate.length; j++) {
-            martix[i][j] = INF;
+            matrix[i][j] = INF;
         }
     }
     
     for (let i = 0; i < pointCoordinate.length; i++) {
         for (let j = 0; j < pointCoordinate.length; j++) {
             if (i == j) {
-                martix[i][j] = 0;
+                matrix[i][j] = 0;
             }
         }
     }
@@ -163,7 +163,7 @@ function setMatrix() {
         st.lat = pointCoordinate[s][1];
         en.lng = pointCoordinate[e][0];
         en.lat = pointCoordinate[e][1];
-        martix[s][e] = martix[e][s] = map.getDistance(st, en);
+        matrix[s][e] = matrix[e][s] = map.getDistance(st, en);
     }
 }
 
